@@ -30,11 +30,13 @@ const Hero = () => {
               lineHeight: "1.1",
             }}
           >
-            All You Need to Supercharge your
+            All You&apos;ll Ever Need
+            <br />
+            to Supercharge your
             <span className="relative whitespace-nowrap">
               <span className="absolute -bottom-1 -left-1 -right-1 -top-1 -rotate-1 bg-indigo-600 dark:bg-orange-50 md:-bottom-0 md:-left-3 md:-right-3 md:-top-0"></span>
               <span className="relative text-white dark:text-black">
-                Team&apos;s Collaboration
+                Team-Collaboration
               </span>
             </span>
           </h1>
