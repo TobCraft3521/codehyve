@@ -8,35 +8,36 @@ const CustomTypeWriter = () => {
       .changeDeleteSpeed(20)
 
       .typeString(
-        "through Realtime Collaboration <span class='font-black'>Whiteboards</span>",
+        "through realtime collaboration <span class='font-black'>whiteboards</span>",
       )
       .pauseFor(1000)
       .deleteChars(34)
       .pauseFor(1000)
       .typeString(
-        "Realtime <span class='font-black'>Chats</span> and <span class='font-black'>Video Conferencing</span>",
+        "realtime <span class='font-black'>chats</span> and <span class='font-black'>video conferencing</span>",
       )
       .pauseFor(1000)
       .deleteChars(37)
       .pauseFor(1000)
       .typeString(
-        "<span class='font-black'>Task Management</span> and <span class='font-black'>Project Tracking</span>",
+        "<span class='font-black'>task management</span> and <span class='font-black'>project tracking</span>",
       )
       .pauseFor(1000)
       .deleteChars(36)
       .pauseFor(1000)
       .typeString(
-        "<span class='font-black'>Meeting tracking</span> for efficient organization",
+        "<span class='font-black'>meeting tracking</span> for efficient organization",
       )
       .pauseFor(1000)
       .deleteChars(44)
+      .pauseFor(1000)
       .typeString(
-        "Project <span class='font-black'>Documentation</span> for clarity",
+        "project <span class='font-black'>documentation</span> for clarity",
       )
       .pauseFor(1000)
       .deleteChars(33)
       .pauseFor(1000)
-      .typeString("Organization in <span class='font-black'>Teams</span>")
+      .typeString("organization in <span class='font-black'>teams</span>")
       .pauseFor(1000)
       .deleteAll()
 

@@ -74,3 +74,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-moz-selection {
+  /* Code for Firefox */
+  background: rgb(107, 15, 255);
+  color: white;
+}
+
+::selection {
+  background: rgb(107, 15, 255);
+  color: white;
+}
