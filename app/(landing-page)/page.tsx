@@ -1,3 +1,4 @@
+import Footer from "@/components/global/footer"
 import { ModeToggle } from "@/components/global/mode-toggle"
 import Features from "@/components/landing-page/features"
 import Header from "@/components/landing-page/header"
@@ -18,6 +19,7 @@ export default function Home() {
             <Features />
           </div>
           <Pricing />
+          <Footer />
         </div>
       </div>
     </ScrollArea>

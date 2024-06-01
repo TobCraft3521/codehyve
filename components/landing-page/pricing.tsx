@@ -32,6 +32,7 @@ const Pricing = () => {
   return (
     <div
       className="relative z-0 flex min-h-screen w-screen flex-col items-center justify-center bg-white py-16 text-gray-900 dark:bg-black dark:text-white xl:py-0"
+      id="pricing"
       //   style={{
       //     backgroundImage: "url('/imgs/backgrounds/bg-gradient.png')",
       //     backgroundSize: "cover",
