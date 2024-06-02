@@ -1,11 +1,9 @@
 import Footer from "@/components/global/footer"
-import { ModeToggle } from "@/components/global/mode-toggle"
 import Features from "@/components/landing-page/features"
 import Header from "@/components/landing-page/header"
 import Hero from "@/components/landing-page/hero"
 import Pricing from "@/components/landing-page/pricing"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import Image from "next/image"
 
 export default function Home() {
   return (

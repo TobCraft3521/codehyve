@@ -34,12 +34,14 @@ const Header = () => {
         </div>
         <div className="flex flex-row items-center gap-2 md:gap-8">
           <Link
-            href="/sign-up"
+            href="/signup"
             className="rounded-md bg-indigo-600 px-2 py-2 text-xs font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 md:px-3.5 md:py-2 md:text-sm"
           >
             Get started
           </Link>
-          <div className="text-xs font-medium md:text-sm">Login</div>
+          <Link href="/login" className="text-xs font-medium md:text-sm">
+            Login
+          </Link>
           <ModeToggle />
         </div>
       </div>
