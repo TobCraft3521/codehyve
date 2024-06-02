@@ -15,12 +15,13 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { actionSignUpUser } from "@/lib/actions/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { createBrowserClient } from "@supabase/ssr"
 import clsx from "clsx"
 import { MailCheck } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -47,6 +48,21 @@ const SignUpPage = () => {
   const [submitError, setSubmitError] = useState("")
   const [confirmation, setConfirmation] = useState(false)
 
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  )
+
+  useEffect(() => {
+    const checkUser = async () => {
+      if ((await supabase.auth.getUser()).data.user) {
+        router.push("/dashboard")
+      }
+    }
+    checkUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const codeExchangeError = useMemo(() => {
     if (!searchParams) return ""
     return searchParams.get("error_description")
@@ -54,7 +70,7 @@ const SignUpPage = () => {
 
   const confirmationAndErrorStyles = useMemo(
     () =>
-      clsx("bg-primary", {
+      clsx("bg-transparent", {
         "bg-red-500/10": codeExchangeError,
         "border-red-500/50": codeExchangeError,
         "text-red-700": codeExchangeError,
@@ -82,6 +98,16 @@ const SignUpPage = () => {
       return
     }
     setConfirmation(true)
+  }
+  const signUpWithGoogle = () => {
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+    })
+  }
+  const signUpWithGithub = () => {
+    supabase.auth.signInWithOAuth({
+      provider: "github",
+    })
   }
   return (
     <Form {...form}>
@@ -113,10 +139,16 @@ const SignUpPage = () => {
           All you&apos;ll ever need to supercharge your team-productivity
         </FormDescription>
         <div className="mt-4 flex h-[40px] w-full flex-row justify-between gap-4">
-          <div className="flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-primary/90">
+          <div
+            className="flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-primary/90"
+            onClick={signUpWithGoogle}
+          >
             <Image src="/google.svg" alt="google" width={20} height={20} />
           </div>
-          <div className="flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-primary/90">
+          <div
+            className="flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-primary/90"
+            onClick={signUpWithGithub}
+          >
             <Image src="/github.svg" alt="github" width={20} height={20} />
           </div>
         </div>

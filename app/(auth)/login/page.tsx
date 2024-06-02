@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button"
 import Loader from "@/components/global/loader"
 import { actionLoginUser } from "@/lib/actions/auth"
 import { Separator } from "@/components/ui/separator"
+import { createBrowserClient } from "@supabase/ssr"
 
 const LoginPage = () => {
   const router = useRouter()
@@ -35,7 +36,31 @@ const LoginPage = () => {
     },
   })
 
-  const signInWithGoogle = () => {}
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  )
+
+  useEffect(() => {
+    const checkUser = async () => {
+      if ((await supabase.auth.getUser()).data.user) {
+        router.push("/dashboard")
+      }
+    }
+    checkUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const signUpWithGoogle = () => {
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+    })
+  }
+  const signUpWithGithub = () => {
+    supabase.auth.signInWithOAuth({
+      provider: "github",
+    })
+  }
 
   const isLoading = form.formState.isSubmitting
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
@@ -70,10 +95,16 @@ const LoginPage = () => {
           All you&apos;ll ever need to supercharge your team-productivity
         </FormDescription>
         <div className="mt-4 flex h-[40px] w-full flex-row justify-between gap-4">
-          <div className="flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-primary/90">
+          <div
+            className="flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-primary/90"
+            onClick={signUpWithGoogle}
+          >
             <Image src="/google.svg" alt="google" width={20} height={20} />
           </div>
-          <div className="flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-primary/90">
+          <div
+            className="flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-primary/90"
+            onClick={signUpWithGithub}
+          >
             <Image src="/github.svg" alt="github" width={20} height={20} />
           </div>
         </div>
@@ -86,7 +117,7 @@ const LoginPage = () => {
           disabled={isLoading}
           control={form.control}
           name="email"
-          render={(field) => (
+          render={({ field }) => (
             <FormItem>
               <FormControl>
                 <Input type="email" placeholder="Email" {...field} />
@@ -99,7 +130,7 @@ const LoginPage = () => {
           disabled={isLoading}
           control={form.control}
           name="password"
-          render={(field) => (
+          render={({ field }) => (
             <FormItem>
               <FormControl>
                 <Input type="password" placeholder="Password" {...field} />

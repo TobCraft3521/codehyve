@@ -1,14 +1,16 @@
 "use server"
-import { createServerClient, type CookieOptions } from "@supabase/ssr"
+
 import { z } from "zod"
+import { CookieOptions, createServerClient } from "@supabase/ssr"
 import { FormSchema } from "../types"
 import { cookies } from "next/headers"
 
-export const actionLoginUser = async ({
+export async function actionLoginUser({
   email,
   password,
-}: z.infer<typeof FormSchema>) => {
+}: z.infer<typeof FormSchema>) {
   const cookieStore = cookies()
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -26,12 +28,10 @@ export const actionLoginUser = async ({
       },
     },
   )
-
   const response = await supabase.auth.signInWithPassword({
     email,
     password,
   })
-
   return response
 }
 
