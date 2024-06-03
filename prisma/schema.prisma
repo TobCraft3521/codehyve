@@ -3,6 +3,35 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id            String         @id @default(cuid())
+  userId        String         @unique
+  organizations Organization[] @relation("ProfileOrganization")
+  teamId        String?
+  teams         Team[]         @relation("ProfileTeams")
+
+  @@index([userId])
+}
+
+model Organization {
+  id          String    @id @default(cuid())
+  name        String
+  adminUserId String    @unique
+  members     Profile[] @relation("ProfileOrganization")
+  Team        Team[]
+
+  @@index([adminUserId])
+}
+
+model Team {
+  id             String       @id @default(cuid())
+  name           String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+  members        Profile[]    @relation("ProfileTeams")
+  profileId      String?
 }
