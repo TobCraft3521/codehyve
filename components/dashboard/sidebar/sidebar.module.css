@@ -4,13 +4,13 @@
   grid-template-columns: repeat(2, 1fr);
   width: 11rem;
   height: 1.75rem;
-  border: 3px solid #1E293B;
   border-radius: 99999px;
-  background: #1E293B;
-  font-weight: bold;
   color: #343434;
+  font-weight: 600;
   cursor: pointer;
+  align-items: center; /* Center the text vertically */
 }
+
 .toggleContainer::before {
   content: "";
   position: absolute;
@@ -18,33 +18,41 @@
   height: 100%;
   left: 0%;
   border-radius: 20px;
-  background: #9333EA;
   transition: all 0.3s;
+  background: var(--toggleColor);
 }
+
+.varprovider {
+  --toggleColor: #8b5cf6;
+  [data-theme="dark"] & {
+    --toggleColor: #7c3aed;
+  }
+}
+
 .toggleCheckbox:checked + .toggleContainer::before {
   left: 50%;
 }
 .toggleContainer div {
-  padding: 6px;
   text-align: center;
   z-index: 1;
+  font-size: 0.875rem;
 }
 .toggleCheckbox {
   display: none;
 }
 .toggleCheckbox:checked + .toggleContainer div:first-child {
-  color: white;
   transition: color 0.3s;
+  color: #64748b;
 }
 .toggleCheckbox:checked + .toggleContainer div:last-child {
-  color: #343434;
+  color: white;
   transition: color 0.3s;
 }
 .toggleCheckbox + .toggleContainer div:first-child {
-  color: #343434;
+  color: white;
   transition: color 0.3s;
 }
 .toggleCheckbox + .toggleContainer div:last-child {
-  color: white;
+  color: #64748b;
   transition: color 0.3s;
 }
