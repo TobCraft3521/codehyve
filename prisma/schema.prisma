@@ -8,8 +8,11 @@ datasource db {
 }
 
 model Profile {
-  id            String         @id @default(cuid())
-  userId        String         @unique
+  id     String @id @default(cuid())
+  userId String @unique
+  name   String
+  email  String
+
   organizations Organization[] @relation("ProfileOrganization")
   teamId        String?
   teams         Team[]         @relation("ProfileTeams")
@@ -18,11 +21,12 @@ model Profile {
 }
 
 model Organization {
-  id          String    @id @default(cuid())
+  id          String @id @default(cuid())
   name        String
-  adminUserId String    @unique
-  members     Profile[] @relation("ProfileOrganization")
-  Team        Team[]
+  adminUserId String @unique
+
+  members Profile[] @relation("ProfileOrganization")
+  Team    Team[]
 
   @@index([adminUserId])
 }

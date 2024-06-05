@@ -20,6 +20,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { queryBrowserClient } from "@/lib/supabase/client"
 import styles from "./sidebar.module.css"
 import { User } from "@supabase/supabase-js"
+import UserCard from "./user-card"
+import { useAppState } from "@/hooks/use-appstate"
 
 interface SideBarProps {
   className?: string
@@ -37,6 +39,8 @@ const SideBar = ({ className }: SideBarProps) => {
     }
     fetchUser()
   }, [supabase.auth])
+  const appState = useAppState()
+  console.log(appState.tab)
   return (
     <div
       className={cn(
@@ -125,42 +129,7 @@ const SideBar = ({ className }: SideBarProps) => {
         </div>
       </div>
       <div className="w-full p-8">
-        <article
-          className="dark:bg-Neutrals/neutrals-12
-      hidden 
-      items-center 
-      justify-between 
-      rounded-3xl 
-      px-4 
-      py-2
-      sm:flex
-  "
-        >
-          <aside className="flex items-center justify-center gap-2">
-            <Avatar>
-              <AvatarImage src={"https://tobcraft.xyz/imgs/icon.png"} />
-              <AvatarFallback>
-                <UserIcon size={24} />
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col">
-              <small
-                className="flex-1
-          overflow-hidden 
-          overflow-ellipsis
-          "
-              >
-                {/* {profile.email} */}
-              </small>
-            </div>
-          </aside>
-          <div className="flex items-center justify-center">
-            <ModeToggle />
-            {/* <LogoutButton> */}
-            <LogOut />
-            {/* </LogoutButton> */}
-          </div>
-        </article>
+        <UserCard />
       </div>
     </div>
   )
