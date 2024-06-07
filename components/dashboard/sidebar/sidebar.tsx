@@ -22,6 +22,7 @@ import styles from "./sidebar.module.css"
 import { User } from "@supabase/supabase-js"
 import UserCard from "./user-card"
 import { useAppState } from "@/hooks/use-appstate"
+import { useParams, useRouter } from "next/navigation"
 
 interface SideBarProps {
   className?: string
@@ -31,6 +32,7 @@ const SideBar = ({ className }: SideBarProps) => {
   const [team, setTeam] = useState(true)
   const supabase = queryBrowserClient()
   const [user, setUser] = useState<User | null>(null)
+  const orgId = useParams().organizationId
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await supabase.auth.getUser()
@@ -40,7 +42,39 @@ const SideBar = ({ className }: SideBarProps) => {
     fetchUser()
   }, [supabase.auth])
   const appState = useAppState()
-  console.log(appState.tab)
+  const router = useRouter()
+  const tabs = [
+    {
+      name: "Dashboard",
+      icon: <LayoutDashboard size={22} />,
+      id: "dashboard",
+      href: "/dashboard/" + orgId,
+    },
+    {
+      name: "Chats",
+      icon: <MessagesSquare size={22} />,
+      id: "chats",
+      href: "/dashboard/" + orgId + "/chats",
+    },
+    {
+      name: "Whiteboard",
+      icon: <NotepadText size={22} />,
+      id: "whiteboard",
+      href: "/dashboard/" + orgId + "/whiteboard",
+    },
+    {
+      name: "Tasks",
+      icon: <CopyCheck size={22} />,
+      id: "tasks",
+      href: "/dashboard/" + orgId + "/tasks",
+    },
+    {
+      name: "Notifications",
+      icon: <Bell size={22} />,
+      id: "notifications",
+      href: "/dashboard/" + orgId + "/notifications",
+    },
+  ]
   return (
     <div
       className={cn(
@@ -77,7 +111,7 @@ const SideBar = ({ className }: SideBarProps) => {
               "border-[3px] border-slate-100 bg-slate-100 dark:border-zinc-800 dark:bg-zinc-800",
             )}
           >
-            <div>Team</div>
+            <div className="!text-[11px]">Team</div>
             <div className="!text-[11px]">Organization</div>
           </label>
 
@@ -95,37 +129,24 @@ const SideBar = ({ className }: SideBarProps) => {
           </button>
         </div>
 
-        <div className="mt-6 flex w-full flex-col items-center p-2 text-sm font-medium">
-          <Link
-            href="#"
-            className="flex w-44 flex-row items-center gap-2 rounded-md p-2 font-semibold text-zinc-600 hover:bg-slate-100 dark:text-white hover:dark:bg-zinc-800"
-          >
-            <LayoutDashboard size={24} className="text-violet-500" /> Dashboard
-          </Link>
-          <Link
-            href="#"
-            className="flex w-44 flex-row items-center gap-2 rounded-md p-2 text-zinc-400 transition-all hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300"
-          >
-            <MessagesSquare size={24} /> Chats
-          </Link>
-          <Link
-            href="#"
-            className="flex w-44 flex-row items-center gap-2 rounded-md p-2 text-zinc-400 transition-all hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300"
-          >
-            <NotepadText size={24} /> Whiteboard
-          </Link>
-          <Link
-            href="#"
-            className="flex w-44 flex-row items-center gap-2 rounded-md p-2 text-zinc-400 transition-all hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300"
-          >
-            <CopyCheck size={24} /> Tasks
-          </Link>
-          <Link
-            href="#"
-            className="flex w-44 flex-row items-center gap-2 rounded-md p-2 text-zinc-400 transition-all hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300"
-          >
-            <Bell size={24} /> Notifications
-          </Link>
+        <div className="mt-6 flex w-full flex-col items-center gap-0.5 p-2 text-sm font-medium">
+          {tabs.map((tab) => (
+            <Link
+              href={tab.href}
+              key={tab.id}
+              className={cn(
+                "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-zinc-400 transition-all",
+                appState.tab === tab.id
+                  ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800"
+                  : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
+              )}
+              onClick={() => {
+                appState.setTab(tab.id)
+              }}
+            >
+              {tab.icon} {tab.name}
+            </Link>
+          ))}
         </div>
       </div>
       <div className="w-full p-8">
