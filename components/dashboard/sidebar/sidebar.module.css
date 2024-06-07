@@ -23,10 +23,8 @@
 }
 
 .varprovider {
-  --toggleColor: #8b5cf6;
-  [data-theme="dark"] & {
-    --toggleColor: #7c3aed;
-  }
+  /* primary foreground color? 60 30 10 (10 <-) */
+  --toggleColor: #4c4c4c;
 }
 
 .toggleCheckbox:checked + .toggleContainer::before {

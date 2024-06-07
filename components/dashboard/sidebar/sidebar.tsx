@@ -9,6 +9,7 @@ import {
   MessagesSquare,
   NotepadText,
   Search,
+  Settings,
   UserIcon,
 } from "lucide-react"
 import Image from "next/image"
@@ -23,6 +24,7 @@ import { User } from "@supabase/supabase-js"
 import UserCard from "./user-card"
 import { useAppState } from "@/hooks/use-appstate"
 import { useParams, useRouter } from "next/navigation"
+import { Separator } from "@/components/ui/separator"
 
 interface SideBarProps {
   className?: string
@@ -48,33 +50,46 @@ const SideBar = ({ className }: SideBarProps) => {
       name: "Dashboard",
       icon: <LayoutDashboard size={22} />,
       id: "dashboard",
-      href: "/dashboard/" + orgId,
+      href: "/dashboard/" + orgId + (team ? "/team" : "/org"),
     },
     {
       name: "Chats",
       icon: <MessagesSquare size={22} />,
       id: "chats",
-      href: "/dashboard/" + orgId + "/chats",
+      href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/chats",
     },
     {
       name: "Whiteboard",
       icon: <NotepadText size={22} />,
       id: "whiteboard",
-      href: "/dashboard/" + orgId + "/whiteboard",
+      href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/whiteboard",
     },
     {
       name: "Tasks",
       icon: <CopyCheck size={22} />,
       id: "tasks",
-      href: "/dashboard/" + orgId + "/tasks",
+      href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/tasks",
     },
     {
       name: "Notifications",
       icon: <Bell size={22} />,
       id: "notifications",
-      href: "/dashboard/" + orgId + "/notifications",
+      href:
+        "/dashboard/" + orgId + (team ? "/team" : "/org") + "/notifications",
     },
   ]
+  const secondaryTabs = [
+    {
+      name: "Settings",
+      icon: <Settings size={22} />,
+      id: "settings",
+      href: "/dashboard/" + orgId + "/settings",
+    },
+  ]
+  const handleTeamOrgSwitch = (teamOrOrg: boolean) => {
+    if (teamOrOrg) router.push("/dashboard/" + orgId + "/team")
+    else router.push("/dashboard/" + orgId + "/org")
+  }
   return (
     <div
       className={cn(
@@ -82,7 +97,7 @@ const SideBar = ({ className }: SideBarProps) => {
         className,
       )}
     >
-      <div className="flex w-[75vw] max-w-[260px] flex-col p-8">
+      <div className="flex w-[75vw] max-w-[260px] flex-col p-8 pt-12">
         <div className="flex w-full justify-center">
           <div className="flex w-full justify-center">
             <Image
@@ -101,7 +116,10 @@ const SideBar = ({ className }: SideBarProps) => {
             id="toggle"
             className={styles["toggleCheckbox"]}
             checked={!team} //not checked means team
-            onChange={() => setTeam(!team)}
+            onChange={() => {
+              setTeam(!team)
+              handleTeamOrgSwitch(!team) // set state only has an effect after the render
+            }}
           />
           <label
             htmlFor="toggle"
@@ -117,7 +135,7 @@ const SideBar = ({ className }: SideBarProps) => {
 
           <button
             // onClick={() => setOpen(true)}
-            className="group mt-4 flex w-44 items-center gap-x-2 rounded-md px-2 py-2 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50"
+            className="group mt-2 flex w-44 items-center gap-x-2 rounded-md px-2 py-1.5 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50"
           >
             <Search className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
             <p className="dark:group hover:text-zinc-500-hover:dark:text-zinc-300 text-sm font-semibold text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400">
@@ -128,16 +146,35 @@ const SideBar = ({ className }: SideBarProps) => {
             </kbd>
           </button>
         </div>
-
         <div className="mt-6 flex w-full flex-col items-center gap-0.5 p-2 text-sm font-medium">
           {tabs.map((tab) => (
             <Link
               href={tab.href}
               key={tab.id}
               className={cn(
-                "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-zinc-400 transition-all",
+                "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all",
                 appState.tab === tab.id
-                  ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800"
+                  ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
+                  : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
+              )}
+              onClick={() => {
+                appState.setTab(tab.id)
+              }}
+            >
+              {tab.icon} {tab.name}
+            </Link>
+          ))}
+        </div>
+        <Separator />
+        <div className=" flex w-full flex-col items-center gap-0.5 p-2 text-sm font-medium">
+          {secondaryTabs.map((tab) => (
+            <Link
+              href={tab.href}
+              key={tab.id}
+              className={cn(
+                "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all",
+                appState.tab === tab.id
+                  ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
                   : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
               )}
               onClick={() => {
