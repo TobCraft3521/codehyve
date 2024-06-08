@@ -2,13 +2,13 @@
 
 import { z } from "zod"
 import { CookieOptions, createServerClient } from "@supabase/ssr"
-import { FormSchema } from "../types"
+import { LoginFormSchema } from "../types"
 import { cookies } from "next/headers"
 
 export async function actionLoginUser({
   email,
   password,
-}: z.infer<typeof FormSchema>) {
+}: z.infer<typeof LoginFormSchema>) {
   const cookieStore = cookies()
 
   const supabase = createServerClient(
@@ -38,7 +38,7 @@ export async function actionLoginUser({
 export async function actionSignUpUser({
   email,
   password,
-}: z.infer<typeof FormSchema>) {
+}: z.infer<typeof LoginFormSchema>) {
   const cookieStore = cookies()
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

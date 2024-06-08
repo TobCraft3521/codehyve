@@ -56,7 +56,7 @@ const SignUpPage = () => {
   useEffect(() => {
     const checkUser = async () => {
       if ((await supabase.auth.getUser()).data.user) {
-        router.push("/dashboard")
+        router.push("/organization-list")
       }
     }
     checkUser()

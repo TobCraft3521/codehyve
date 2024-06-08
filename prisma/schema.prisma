@@ -10,8 +10,8 @@ datasource db {
 model Profile {
   id     String @id @default(cuid())
   userId String @unique
-  name   String
-  email  String
+  name   String @default("User")
+  email  String @default("")
 
   organizations Organization[] @relation("ProfileOrganization")
   teamId        String?
@@ -23,6 +23,7 @@ model Profile {
 model Organization {
   id          String @id @default(cuid())
   name        String
+  description String @default("")
   adminUserId String @unique
 
   members Profile[] @relation("ProfileOrganization")
