@@ -5,9 +5,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="flex h-screen w-full flex-col">
       <div className="flex w-full flex-1 flex-row">
-        <SideBar className="hidden lg:flex" />
-        <div className="flex min-h-screen flex-1 flex-col pl-0 p-4 pt-8">
-          <div className="flex flex-1 bg-[#F5F5FB] overflow-hidden dark:bg-[#151419] md:rounded-2xl">
+        <SideBar className="hidden lg:flex" hideContent />
+        <div className="flex min-h-screen flex-1 flex-col p-4 pl-0 pt-8">
+          <div className="flex flex-1 overflow-hidden bg-[#F5F5FB] dark:bg-[#151419] md:rounded-2xl">
             {children}
           </div>
         </div>
