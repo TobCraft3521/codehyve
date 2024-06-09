@@ -24,7 +24,7 @@ model Organization {
   id          String @id @default(cuid())
   name        String
   description String @default("")
-  adminUserId String @unique
+  adminUserId String
 
   members Profile[] @relation("ProfileOrganization")
   Team    Team[]

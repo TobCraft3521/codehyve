@@ -11,6 +11,7 @@ import {
   Search,
   Settings,
   UserIcon,
+  Video,
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -64,6 +65,12 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
       icon: <NotepadText size={22} />,
       id: "whiteboard",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/whiteboard",
+    },
+    {
+      name: "Meetings",
+      icon: <Video size={22} />,
+      id: "meetings",
+      href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/meetings",
     },
     {
       name: "Tasks",

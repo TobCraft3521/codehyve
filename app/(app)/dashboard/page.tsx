@@ -19,6 +19,8 @@ const DashboardRedirect = async () => {
     })
     if (orgs.length > 0) {
       return redirect("/dashboard/" + orgs[0].id + "")
+    }else {
+      return redirect("/organization-list")  
     }
   } else {
     return redirect("/signup")

@@ -17,5 +17,5 @@ export const createOrg = async ({
       adminUserId: user.id, // this is not auth userId but the user id from the user table
     },
   })
-  return { data: "success", error: null }
+  return { error: null }
 }
