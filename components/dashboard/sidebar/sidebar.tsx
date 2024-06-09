@@ -161,13 +161,13 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
             </button>
           </div>
 
-          <div className="mt-6 flex w-full flex-col items-center gap-0.5 p-2 text-sm font-medium">
+          <div className="mt-6 flex w-full flex-col items-center gap-1 p-2 text-sm font-medium">
             {tabs.map((tab) => (
               <Link
                 href={tab.href}
                 key={tab.id}
                 className={cn(
-                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all dark:text-zinc-400",
+                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-[13px] text-slate-400 transition-all dark:text-zinc-400",
                   appState.tab === tab.id
                     ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
                     : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
@@ -187,7 +187,7 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
                 href={tab.href}
                 key={tab.id}
                 className={cn(
-                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all dark:text-zinc-400",
+                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-[13px] text-slate-400 transition-all dark:text-zinc-400",
                   appState.tab === tab.id
                     ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
                     : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
