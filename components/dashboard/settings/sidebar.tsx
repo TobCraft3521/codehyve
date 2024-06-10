@@ -6,7 +6,7 @@ import { useParams } from "next/navigation"
 const SettingsSidebar = () => {
   const { organizationId } = useParams()
   return (
-    <div className="h-full w-[260px] rounded-l-2xl border border-zinc-800 bg-[#EDEDF3] dark:bg-[#111015]">
+    <div className="h-full w-[260px] rounded-l-2xl border border-zinc-300 dark:border-zinc-800 bg-[#EDEDF3] dark:bg-[#111015]">
       <h1 className="p-12 pb-1 text-xl font-semibold">Settings</h1>
       <h2 className="mt-4 w-full px-12 text-sm font-semibold">Personal</h2>
       <div className="flex w-full flex-col items-center gap-1 p-2 text-sm font-medium ">
