@@ -50,37 +50,37 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
   const tabs = [
     {
       name: "Dashboard",
-      icon: <LayoutDashboard size={22} />,
+      icon: <LayoutDashboard size={20} />,
       id: "dashboard",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org"),
     },
     {
       name: "Chats",
-      icon: <MessagesSquare size={22} />,
+      icon: <MessagesSquare size={20} />,
       id: "chats",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/chats",
     },
     {
       name: "Whiteboard",
-      icon: <NotepadText size={22} />,
+      icon: <NotepadText size={20} />,
       id: "whiteboard",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/whiteboard",
     },
     {
       name: "Meetings",
-      icon: <Video size={22} />,
+      icon: <Video size={20} />,
       id: "meetings",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/meetings",
     },
     {
       name: "Tasks",
-      icon: <CopyCheck size={22} />,
+      icon: <CopyCheck size={20} />,
       id: "tasks",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/tasks",
     },
     {
       name: "Notifications",
-      icon: <Bell size={22} />,
+      icon: <Bell size={20} />,
       id: "notifications",
       href:
         "/dashboard/" + orgId + (team ? "/team" : "/org") + "/notifications",
@@ -89,7 +89,7 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
   const secondaryTabs = [
     {
       name: "Settings",
-      icon: <Settings size={22} />,
+      icon: <Settings size={20} />,
       id: "settings",
       href: "/dashboard/" + orgId + "/settings",
     },
@@ -167,7 +167,7 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
                 href={tab.href}
                 key={tab.id}
                 className={cn(
-                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-[13px] text-slate-400 transition-all dark:text-zinc-400",
+                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all dark:text-zinc-400",
                   appState.tab === tab.id
                     ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
                     : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
@@ -187,7 +187,7 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
                 href={tab.href}
                 key={tab.id}
                 className={cn(
-                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-[13px] text-slate-400 transition-all dark:text-zinc-400",
+                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all dark:text-zinc-400",
                   appState.tab === tab.id
                     ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
                     : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
