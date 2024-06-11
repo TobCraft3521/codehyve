@@ -8,10 +8,12 @@ datasource db {
 }
 
 model Profile {
-  id     String @id @default(cuid())
-  userId String @unique
-  name   String @default("User")
-  email  String @default("")
+  id          String @id @default(cuid())
+  userId      String @unique
+  name        String @default("User")
+  email       String @default("")
+  description String @default("")
+  avatarUrl   String @default("")
 
   organizations Organization[] @relation("ProfileOrganization")
   teamId        String?

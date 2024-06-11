@@ -8,6 +8,7 @@ import {
   LogOut,
   MessagesSquare,
   NotepadText,
+  PenBox,
   Search,
   Settings,
   UserIcon,
@@ -62,7 +63,7 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
     },
     {
       name: "Whiteboard",
-      icon: <NotepadText size={20} />,
+      icon: <PenBox size={20} />,
       id: "whiteboard",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/whiteboard",
     },
