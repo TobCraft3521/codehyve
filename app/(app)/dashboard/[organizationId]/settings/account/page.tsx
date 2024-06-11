@@ -21,7 +21,7 @@ const AccountSettings: React.FC<AccountSettingsProps> = () => {
     <div className="relative flex h-full w-full flex-1 items-center justify-center">
       <div className="absolute top-0 h-[30vh] w-full border-b border-zinc-300 bg-[#EDEDF3] dark:border-zinc-800 dark:bg-[#111015]"></div>
 
-      <div className="relative max-w-lg w-full rounded-lg border border-gray-200 bg-white p-6 shadow-xl dark:border-gray-800 dark:bg-[#111015] md:rounded-xl md:p-12">
+      <div className="relative max-w-lg w-full rounded-xl border border-gray-200 bg-gray-50 p-6 shadow-xl dark:border-gray-800 dark:bg-[#111015] md:rounded-xl md:p-12">
         <div className="mb-6 flex items-center">
           <Avatar className="mr-4 h-14 w-14">
             <AvatarImage src="/github.svga"></AvatarImage>
@@ -100,7 +100,7 @@ const AccountSettings: React.FC<AccountSettingsProps> = () => {
             type="email"
             disabled
             value={"email@provider.com"}
-            className="w-full cursor-not-allowed rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-slate-400"
+            className="w-full cursor-not-allowed rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-slate-400"
           />
         </div>
       </div>

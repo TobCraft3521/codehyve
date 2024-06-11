@@ -1,7 +1,10 @@
+import WorkInProgressPlaceHolder from "@/components/global/wip"
+import Image from "next/image"
+
 const AccountSettings = () => {
   return (
-    <div>
-      <h1>Account Settings</h1>
+    <div className="h-full"> 
+      <WorkInProgressPlaceHolder />
     </div>
   )
 }
