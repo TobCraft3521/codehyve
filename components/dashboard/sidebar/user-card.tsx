@@ -4,7 +4,6 @@ import { profile } from "@/lib/actions/user/profile"
 import { LogOut, User } from "lucide-react"
 
 const UserCard = () => {
-  const user = null
   return (
     <div className="flex h-12 w-full flex-row rounded-xl bg-zinc-100 dark:bg-zinc-800">
       <Avatar className="my-auto ml-2 h-8 w-8">

@@ -11,6 +11,7 @@ model Profile {
   id          String @id @default(cuid())
   userId      String @unique
   name        String @default("User")
+  userName    String @default("Username")
   email       String @default("")
   description String @default("")
   avatarUrl   String @default("")
@@ -18,6 +19,10 @@ model Profile {
   organizations Organization[] @relation("ProfileOrganization")
   teamId        String?
   teams         Team[]         @relation("ProfileTeams")
+
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  TeamMember TeamMember[]
 
   @@index([userId])
 }
@@ -28,8 +33,12 @@ model Organization {
   description String @default("")
   adminUserId String
 
-  members Profile[] @relation("ProfileOrganization")
-  Team    Team[]
+  profiles Profile[] @relation("ProfileOrganization")
+  members  Member[]
+  Team     Team[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([adminUserId])
 }
@@ -41,4 +50,51 @@ model Team {
   organizationId String
   members        Profile[]    @relation("ProfileTeams")
   profileId      String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  TeamMember     TeamMember[]
+
+  @@index([organizationId])
+}
+
+enum OrgRole {
+  ADMIN
+  COADMIN
+  MEMBER
+}
+
+model Member {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  userId         String
+  role           OrgRole      @default(MEMBER)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model InviteLink {
+  id             String   @id @default(cuid())
+  organizationId String
+  userId         String
+  token          String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+enum TeamRole {
+  TEAMLEAD
+  COLEAD
+  MEMBER
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id])
+  userId    String
+  user      Profile  @relation(fields: [userId], references: [id])
+  role      TeamRole @default(MEMBER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

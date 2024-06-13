@@ -17,3 +17,18 @@ export const CreateOrgFormSchema = z.object({
     message: "Please enter a description",
   }),
 })
+
+export const UpdateAccountFormSchema = z.object({
+  name: z.string().describe("Name").min(1, {
+    message: "Please enter a name",
+  }),
+  userName: z.string().describe("Username").min(1, {
+    message: "Please enter a username",
+  }),
+  avatarUrl: z.string().describe("Avatar URL").url({
+    message: "Please enter a valid URL",
+  }),
+  description: z.string().describe("Profile Description").min(1, {
+    message: "Please enter a description",
+  }),
+})
