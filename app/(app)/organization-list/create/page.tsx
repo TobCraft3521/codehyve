@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -13,8 +12,7 @@ import { Input } from "@/components/ui/input"
 import { createOrg } from "@/lib/actions/org/create"
 import { CreateOrgFormSchema } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Image from "next/image"
-import Link from "next/link"
+import { LucideBuilding } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
@@ -29,12 +27,17 @@ const CreateOrg = () => {
     defaultValues: {
       name: "",
       description: "",
+      img: "",
     },
   })
   const isLoading = form.formState.isSubmitting
   const onSubmit: SubmitHandler<z.infer<typeof CreateOrgFormSchema>> = async (
     formData,
   ) => {
+    console.log(formData)
+    const image = formData.img?.[0]
+    console.log(image)
+    return
     const { error } = await createOrg(formData)
     if (error) {
       setSubmitError(error)
@@ -52,7 +55,11 @@ const CreateOrg = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex w-full flex-col space-y-4 sm:w-[400px] sm:justify-center"
         >
-          <h1 className="text-xl font-bold">Create an organization</h1>
+          <h1 className="flex items-center gap-2 text-xl font-bold">
+            <LucideBuilding className="h-5 w-5" />
+            Create an organization
+          </h1>
+
           <FormField
             disabled={isLoading}
             control={form.control}
@@ -60,7 +67,15 @@ const CreateOrg = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="text" placeholder="Name" {...field} />
+                  <>
+                    <label
+                      className="mb-2 block text-sm font-medium tracking-wide text-gray-900 dark:text-zinc-400"
+                      htmlFor="name"
+                    >
+                      Name
+                    </label>
+                    <Input type="text" placeholder="Name" {...field} />
+                  </>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,7 +88,43 @@ const CreateOrg = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="text" placeholder="Description" {...field} />
+                  <>
+                    <label
+                      className="mb-2 block text-sm font-medium tracking-wide text-gray-900 dark:text-zinc-400"
+                      htmlFor="description"
+                    >
+                      Description
+                    </label>
+                    <Input type="text" placeholder="Description" {...field} />
+                  </>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            disabled={isLoading}
+            control={form.control}
+            name="img"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <>
+                    <label
+                      className="mb-2 block text-sm font-medium tracking-wide text-gray-900 dark:text-zinc-400"
+                      htmlFor="img"
+                    >
+                      Image
+                    </label>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      placeholder="image"
+                      {...form.register("img", {
+                        required: "Please select an image",
+                      })}
+                    />
+                  </>
                 </FormControl>
                 <FormMessage />
               </FormItem>

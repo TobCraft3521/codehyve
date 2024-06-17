@@ -21,7 +21,7 @@ model Profile {
   teams         Team[]         @relation("ProfileTeams")
 
   createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  updatedAt  DateTime     @default(now()) @updatedAt
   TeamMember TeamMember[]
 
   @@index([userId])
@@ -38,7 +38,7 @@ model Organization {
   Team     Team[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([adminUserId])
 }
@@ -51,7 +51,7 @@ model Team {
   members        Profile[]    @relation("ProfileTeams")
   profileId      String?
   createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  updatedAt      DateTime     @default(now()) @updatedAt
   TeamMember     TeamMember[]
 
   @@index([organizationId])
@@ -70,16 +70,16 @@ model Member {
   userId         String
   role           OrgRole      @default(MEMBER)
   createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  updatedAt      DateTime     @default(now()) @updatedAt
 }
 
-model InviteLink {
+model Invitation {
   id             String   @id @default(cuid())
   organizationId String
   userId         String
-  token          String
+  token          String   @unique
   createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  updatedAt      DateTime @default(now()) @updatedAt
 }
 
 enum TeamRole {
@@ -92,9 +92,9 @@ model TeamMember {
   id        String   @id @default(cuid())
   teamId    String
   team      Team     @relation(fields: [teamId], references: [id])
-  userId    String
-  user      Profile  @relation(fields: [userId], references: [id])
   role      TeamRole @default(MEMBER)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
+  Profile   Profile? @relation(fields: [profileId], references: [id])
+  profileId String?
 }

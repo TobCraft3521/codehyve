@@ -16,6 +16,7 @@ export const CreateOrgFormSchema = z.object({
   description: z.string().min(1, {
     message: "Please enter a description",
   }),
+  img: z.any().describe("Organization Image"),
 })
 
 export const UpdateAccountFormSchema = z.object({
