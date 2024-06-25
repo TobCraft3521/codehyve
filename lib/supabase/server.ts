@@ -34,3 +34,8 @@ export function createClient() {
     },
   )
 }
+
+export const auth = async () => {
+  const client = createClient()
+  return (await client.auth.getUser()).data.user
+}

@@ -51,37 +51,37 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
   const tabs = [
     {
       name: "Dashboard",
-      icon: <LayoutDashboard size={20} />,
+      icon: <LayoutDashboard size={16} />,
       id: "dashboard",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org"),
     },
     {
       name: "Chats",
-      icon: <MessagesSquare size={20} />,
+      icon: <MessagesSquare size={16} />,
       id: "chats",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/chats",
     },
     {
       name: "Whiteboard",
-      icon: <PenBox size={20} />,
+      icon: <PenBox size={16} />,
       id: "whiteboard",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/whiteboard",
     },
     {
       name: "Meetings",
-      icon: <Video size={20} />,
+      icon: <Video size={16} />,
       id: "meetings",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/meetings",
     },
     {
       name: "Tasks",
-      icon: <CopyCheck size={20} />,
+      icon: <CopyCheck size={16} />,
       id: "tasks",
       href: "/dashboard/" + orgId + (team ? "/team" : "/org") + "/tasks",
     },
     {
       name: "Notifications",
-      icon: <Bell size={20} />,
+      icon: <Bell size={16} />,
       id: "notifications",
       href:
         "/dashboard/" + orgId + (team ? "/team" : "/org") + "/notifications",
@@ -90,7 +90,7 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
   const secondaryTabs = [
     {
       name: "Settings",
-      icon: <Settings size={20} />,
+      icon: <Settings size={16} />,
       id: "settings",
       href: "/dashboard/" + orgId + "/settings",
     },
@@ -161,45 +161,52 @@ const SideBar = ({ className, hideContent }: SideBarProps) => {
               </kbd>
             </button>
           </div>
-
-          <div className="mt-6 flex w-full flex-col items-center gap-1 p-2 text-sm font-medium">
-            {tabs.map((tab) => (
-              <Link
-                href={tab.href}
-                key={tab.id}
-                className={cn(
-                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all dark:text-zinc-400",
-                  appState.tab === tab.id
-                    ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
-                    : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
-                )}
-                onClick={() => {
-                  appState.setTab(tab.id)
-                }}
-              >
-                {tab.icon} {tab.name}
-              </Link>
-            ))}
+          <div className="mt-6 w-full">
+            <h2 className="mt-4 w-full px-4 text-sm font-semibold">
+              Dashboard
+            </h2>
+            <div className="flex w-full flex-col items-center gap-0.5 p-2 text-sm font-medium">
+              {tabs.map((tab) => (
+                <Link
+                  href={tab.href}
+                  key={tab.id}
+                  className={cn(
+                    "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all dark:text-zinc-400",
+                    appState.tab === tab.id
+                      ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
+                      : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
+                  )}
+                  onClick={() => {
+                    appState.setTab(tab.id)
+                  }}
+                >
+                  {tab.icon} {tab.name}
+                </Link>
+              ))}
+            </div>
           </div>
           <Separator />
-          <div className=" flex w-full flex-col items-center gap-0.5 p-2 text-sm font-medium">
-            {secondaryTabs.map((tab) => (
-              <Link
-                href={tab.href}
-                key={tab.id}
-                className={cn(
-                  "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all dark:text-zinc-400",
-                  appState.tab === tab.id
-                    ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
-                    : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
-                )}
-                onClick={() => {
-                  appState.setTab(tab.id)
-                }}
-              >
-                {tab.icon} {tab.name}
-              </Link>
-            ))}
+          <div className="mt-6 w-full">
+            <h2 className="mt-4 w-full px-4 text-sm font-semibold">Other</h2>
+            <div className="flex w-full flex-col items-center gap-0.5 p-2 text-sm font-medium">
+              {secondaryTabs.map((tab) => (
+                <Link
+                  href={tab.href}
+                  key={tab.id}
+                  className={cn(
+                    "flex w-44 flex-row items-center gap-2 rounded-md p-2 text-sm text-slate-400 transition-all dark:text-zinc-400",
+                    appState.tab === tab.id
+                      ? "bg-slate-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
+                      : "hover:bg-slate-100 hover:text-zinc-500 hover:dark:bg-zinc-800 hover:dark:text-zinc-300",
+                  )}
+                  onClick={() => {
+                    appState.setTab(tab.id)
+                  }}
+                >
+                  {tab.icon} {tab.name}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -6,3 +6,8 @@ export const queryBrowserClient = () => {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   )
 }
+
+export const auth = async () => {
+  const client = queryBrowserClient()
+  return await client.auth.getUser()
+}

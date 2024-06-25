@@ -31,6 +31,7 @@ model Organization {
   id          String @id @default(cuid())
   name        String
   description String @default("")
+  iconUrl     String @default("")
   adminUserId String
 
   profiles Profile[] @relation("ProfileOrganization")
@@ -71,6 +72,8 @@ model Member {
   role           OrgRole      @default(MEMBER)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
+
+  @@unique([organizationId, userId])
 }
 
 model Invitation {
@@ -97,4 +100,12 @@ model TeamMember {
   updatedAt DateTime @default(now()) @updatedAt
   Profile   Profile? @relation(fields: [profileId], references: [id])
   profileId String?
+}
+
+model NotificationSubscription {
+  id           String @id @default(cuid())
+  subscription String @unique
+
+  @@index([subscription])
+  @@index([id])
 }

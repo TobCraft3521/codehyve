@@ -9,11 +9,12 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { createOrg } from "@/lib/actions/org/create"
+import { createOrg, updateOrg } from "@/lib/actions/org/create"
+import { queryBrowserClient } from "@/lib/supabase/client"
 import { CreateOrgFormSchema } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LucideBuilding } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -21,6 +22,8 @@ import { z } from "zod"
 const CreateOrg = () => {
   const [submitError, setSubmitError] = useState<string | null>(null)
   const router = useRouter()
+
+  const supabase = queryBrowserClient()
   const form = useForm<z.infer<typeof CreateOrgFormSchema>>({
     mode: "onChange",
     resolver: zodResolver(CreateOrgFormSchema),
@@ -35,15 +38,29 @@ const CreateOrg = () => {
     formData,
   ) => {
     console.log(formData)
-    const image = formData.img?.[0]
-    console.log(image)
-    return
-    const { error } = await createOrg(formData)
+    const { error, data } = await createOrg({
+      name: formData.name,
+      description: formData.description,
+    })
     if (error) {
       setSubmitError(error)
       return
     }
-    router.push("/dashboard")
+    const image = formData.img?.[0]
+    // await supabase.auth.getUser()
+    const { data: imgData, error: imgError } = await supabase.storage
+      .from("org-icons")
+      .upload("org-icon." + data.id, image, {
+        upsert: true,
+      })
+    if (imgError || !imgData.path) throw new Error()
+    const path = supabase.storage.from("org-icons").getPublicUrl(imgData?.path)
+      .data.publicUrl
+    await updateOrg({
+      id: data.id,
+      iconUrl: path,
+    })
+    router.push("/dashboard/" + data.id)
   }
   return (
     <div className="flex h-full w-full items-center justify-center">

@@ -1,4 +1,5 @@
 import SideBar from "@/components/dashboard/sidebar/sidebar"
+import PushProvider from "@/lib/providers/push-provider"
 import React from "react"
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {

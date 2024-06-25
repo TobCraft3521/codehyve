@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/lib/providers/theme-provider"
 import { Toaster } from "react-hot-toast"
+import PushProvider from "@/lib/providers/push-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -17,10 +18,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body className={inter.className}>
         <ThemeProvider defaultTheme="system" enableSystem attribute="class">
           <Toaster />
+          <PushProvider />
+
           {children}
         </ThemeProvider>
       </body>

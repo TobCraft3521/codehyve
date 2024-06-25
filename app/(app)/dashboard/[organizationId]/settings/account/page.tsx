@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Skeleton } from "@/components/ui/skeleton"
 import { profile, updateUser } from "@/lib/actions/user/profile"
 import { UpdateAccountFormSchema } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -56,6 +57,7 @@ const AccountSettings: React.FC<AccountSettingsProps> = () => {
       form.setValue("avatarUrl", user.avatarUrl)
       form.setValue("userName", user.userName)
       setEmail(user.email)
+
       setLoading(false)
     }
     fetchData()
@@ -67,9 +69,52 @@ const AccountSettings: React.FC<AccountSettingsProps> = () => {
     return (
       <div className="relative flex h-full w-full flex-1 items-center justify-center">
         <div className="absolute top-0 h-[30vh] w-full border-b border-zinc-300 bg-[#EDEDF3] dark:border-zinc-800 dark:bg-[#111015]"></div>
-        <div className="relative flex w-full max-w-lg justify-center rounded-xl border border-gray-200 bg-gray-50 p-6 text-sm shadow-xl dark:border-gray-800 dark:bg-[#111015] md:rounded-xl md:p-12">
-          <Loader />
-        </div>
+        <Form {...form}>
+          <form
+            onChange={() => {
+              if (submitError) setSubmitError("")
+            }}
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="relative flex w-full max-w-lg flex-col gap-6 rounded-xl border border-gray-200 bg-gray-50 p-6 text-sm shadow-xl dark:border-gray-800 dark:bg-[#111015] md:rounded-xl md:p-12"
+          >
+            <div className="flex items-center">
+              <Skeleton className="mr-4 h-14 w-14 rounded-full" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-[250px]" />
+                <Skeleton className="h-4 w-[200px]" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-8 w-full" />
+            </div>
+
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-8 w-full" />
+            </div>
+
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-20 w-full" />
+            </div>
+
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-8 w-full" />
+            </div>
+
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-8 w-full" />
+            </div>
+
+            <div className="flex w-full justify-end">
+              <Skeleton className="h-8 w-20" />
+            </div>
+          </form>
+        </Form>
       </div>
     )
 
