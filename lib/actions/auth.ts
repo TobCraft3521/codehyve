@@ -32,7 +32,9 @@ export async function actionLoginUser({
     email,
     password,
   })
-  return response
+  return {
+    error: response.error?.message || undefined,
+  }
 }
 
 export async function actionSignUpUser({
@@ -63,7 +65,7 @@ export async function actionSignUpUser({
     .select("*")
     .eq("email", email)
 
-  if (data?.length) return { error: { message: "User already exists", data } }
+  if (data?.length) return { error: "User already exists" }
   const response = await supabase.auth.signUp({
     email,
     password,
@@ -71,5 +73,7 @@ export async function actionSignUpUser({
       emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}api/auth/callback`,
     },
   })
-  return response
+  return {
+    error: response.error?.message || undefined,
+  }
 }

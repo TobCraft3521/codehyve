@@ -51,9 +51,9 @@ const CreateOrg = () => {
     const { data: imgData, error: imgError } = await supabase.storage
       .from("org-icons")
       .upload("org-icon." + data.id, image, {
-        upsert: true,
+        // upsert: true,
       })
-    if (imgError || !imgData.path) throw new Error()
+    if (imgError || !imgData.path) throw new Error(imgError?.message || "Image upload failed")
     const path = supabase.storage.from("org-icons").getPublicUrl(imgData?.path)
       .data.publicUrl
     await updateOrg({

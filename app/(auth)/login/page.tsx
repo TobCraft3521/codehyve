@@ -68,7 +68,7 @@ const LoginPage = () => {
   ) => {
     const { error } = await actionLoginUser(formData)
     if (error) {
-      setSubmitError(error.message)
+      setSubmitError(error)
       return
     }
     router.push("/dashboard")

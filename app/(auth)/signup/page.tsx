@@ -93,7 +93,7 @@ const SignUpPage = () => {
   }: z.infer<typeof SignUpFormSchema>) => {
     const { error } = await actionSignUpUser({ email, password })
     if (error) {
-      setSubmitError(error.message)
+      setSubmitError(error)
       form.reset()
       return
     }

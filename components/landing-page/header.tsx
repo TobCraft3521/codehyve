@@ -1,8 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ModeToggle } from "../global/mode-toggle"
+import { auth } from "@/lib/supabase/server"
+import { ChevronRight } from "lucide-react"
 
-const Header = () => {
+const Header = async () => {
+  const user = await auth()
+  const isLoggedIn = user !== null
+
   return (
     <div className="absolute top-0 z-50 w-full">
       <div className="mx-auto flex max-w-7xl flex-row items-center justify-between px-8 py-7">
@@ -33,15 +38,29 @@ const Header = () => {
           </div>
         </div>
         <div className="flex flex-row items-center gap-2 md:gap-8">
-          <Link
-            href="/signup"
-            className="rounded-md bg-indigo-600 px-2 py-2 text-xs font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 md:px-3.5 md:py-2 md:text-sm"
-          >
-            Get started
-          </Link>
-          <Link href="/login" className="text-xs font-medium md:text-sm">
-            Login
-          </Link>
+          {!isLoggedIn ? (
+            <>
+              <Link
+                href="/signup"
+                className="rounded-md bg-indigo-600 px-2 py-2 text-xs font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 md:px-3.5 md:py-2 md:text-sm"
+              >
+                Get started
+              </Link>
+              <Link href="/login" className="text-xs font-medium md:text-sm">
+                Login
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/dashboard"
+                className="rounded-md bg-indigo-600 px-2 py-2 flex flex-row items-center justify-center gap-2 text-xs font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 md:px-3.5 md:py-2 md:text-sm"
+              >
+                Dashboard
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </>
+          )}
           <ModeToggle />
         </div>
       </div>
