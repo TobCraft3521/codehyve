@@ -47,6 +47,7 @@
   --color-bgaccent: var(--bg-accent);
 
   --color-accentcl: var(--color-accent);
+  --color-mutedcl: var(--color-muted);
 }
 
 :root {
@@ -87,6 +88,7 @@
   --bright: oklch(0.141 0.005 285.823);
 
   --color-accent: oklch(0.967 0.001 286.375);
+  --color-muted: oklch(0.967 0.001 286.375);
 }
 
 .dark {
@@ -126,6 +128,7 @@
   --bg-accent: hsl(252, 12%, 8%);
 
   --color-accent: hsl(252, 81%, 56%);
+  --color-muted: hsl(252, 12%, 40%);
 }
 
 @layer base {

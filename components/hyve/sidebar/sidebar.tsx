@@ -79,7 +79,7 @@ const CodehyveSidebar = () => {
           </div>
         </div>
         {/* home */}
-        <div className="flex flex-row gap-1 w-fullcursor-pointer hover:bg-bright items-center p-1.5 rounded-[4px] text-[12px] bg-bright">
+        <div className="flex flex-row gap-1 w-full cursor-pointer hover:bg-bright items-center p-1.5 rounded-[6px] text-[12px] bg-bright transition">
           <Home className="h-[12px] w-[12px]" />
           Home
         </div>
@@ -90,7 +90,7 @@ const CodehyveSidebar = () => {
           {sampleRecentCombs.map((comb, index) => (
             <div
               key={index}
-              className="flex flex-row gap-1 w-full cursor-pointer hover:bg-bright items-center p-1.5 rounded-[4px] text-[12px]"
+              className="flex flex-row gap-1 w-full cursor-pointer transition hover:bg-bright items-center p-1.5 rounded-[6px] text-[12px]"
             >
               {comb.icon}
               <span>{comb.name}</span>
@@ -104,7 +104,7 @@ const CodehyveSidebar = () => {
           {sampleFavoriteCombs.map((comb, index) => (
             <div
               key={index}
-              className="flex flex-row gap-1 w-full cursor-pointer hover:bg-bright items-center p-1.5 rounded-[4px] text-[12px]"
+              className="flex flex-row gap-1 w-full cursor-pointer hover:bg-bright items-center p-1.5 rounded-[6px] text-[12px]"
             >
               {comb.icon}
               <span>{comb.name}</span>
